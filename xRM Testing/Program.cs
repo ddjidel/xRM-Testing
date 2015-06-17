@@ -127,8 +127,8 @@ namespace xRM_Testing
             var json = JsonConvert.SerializeObject(lead);
             byte[] byteArray = Encoding.UTF8.GetBytes(json);
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.17/xRMConnector/api/Lead");
-            // HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://xrmconnector.azurewebsites.net/api/Lead");
+            // HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.17/xRMConnector/api/Lead");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://xrmconnector.azurewebsites.net/api/Lead");
             request.ContentType = "application/json";
             request.Method = "POST";
             request.ContentLength = byteArray.Length;
