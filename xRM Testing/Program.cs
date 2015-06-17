@@ -106,8 +106,6 @@ namespace xRM_Testing
         }
         static void Main(string[] args)
         {
-            // createLead("CV", "Laetitia", "Casta");
-
             string responseMessage = null;
             
             string fileName = "C:\\Users\\dalild\\Documents\\Laetitia CV.docx";
@@ -130,6 +128,7 @@ namespace xRM_Testing
             byte[] byteArray = Encoding.UTF8.GetBytes(json);
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.17/xRMConnector/api/Lead");
+            // HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://xrmconnector.azurewebsites.net/api/Lead");
             request.ContentType = "application/json";
             request.Method = "POST";
             request.ContentLength = byteArray.Length;
