@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xrm.Sdk">
-      <HintPath>..\..\..\SDK\Bin\Microsoft.Xrm.Sdk.dll</HintPath>
+      <HintPath>..\..\..\..\Documents\Visual Studio 2013\Projects\SDK\Bin\Microsoft.Xrm.Sdk.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
