@@ -89,14 +89,14 @@ namespace xRM_Testing
 
                 EntityReference entRef = new EntityReference("lead", leadId);
 
-                string fileName = "C:\\Users\\Dalil\\Documents\\Laetitia Casta CV.docx";
+                string fileName = "C:\\Users\\dalild\\Documents\\Laetitia CV.docx";
                 FileStream stream = File.OpenRead(fileName);
                 byte[] byteData = new byte[stream.Length];
                 stream.Read(byteData, 0, byteData.Length);
                 stream.Close();
 
                 Annotation note = new Annotation();
-                note.Subject = "Test";
+                note.Subject = "CV";
                 note.FileName = fileName;
                 note.DocumentBody = Convert.ToBase64String(byteData);
                 note.MimeType = GetContentType(fileName);
@@ -106,11 +106,16 @@ namespace xRM_Testing
         }
         static void Main(string[] args)
         {
-            string fileName = "C:\\Users\\dalild\\Documents\\Laetitia CV.docx";
+            // createLead("CV", "Laetitia", "Casta");
+
             string responseMessage = null;
+            
+            string fileName = "C:\\Users\\dalild\\Documents\\Laetitia CV.docx";
             FileStream stream = File.OpenRead(fileName);
             byte[] byteData = new byte[stream.Length];
-
+            stream.Read(byteData, 0, byteData.Length);
+            stream.Close();
+            
             JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
             Lead lead = new Lead();
             lead.Subject = "Candidate";
@@ -124,7 +129,7 @@ namespace xRM_Testing
             var json = JsonConvert.SerializeObject(lead);
             byte[] byteArray = Encoding.UTF8.GetBytes(json);
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.28/xRMConnector/api/Lead");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.17/xRMConnector/api/Lead");
             request.ContentType = "application/json";
             request.Method = "POST";
             request.ContentLength = byteArray.Length;
