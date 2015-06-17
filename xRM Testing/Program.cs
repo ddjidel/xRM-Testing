@@ -15,6 +15,7 @@ using Microsoft.Win32;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace xRM_Testing
 {
@@ -44,6 +45,16 @@ namespace xRM_Testing
                 return cre;
             }
         }
+    }
+    public class Lead
+    {
+        public string Subject { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string NoteSubject { get; set; }
+        public string FileName { get; set; }
+        public string MimeType { get; set; }
+        public byte[] Data { get; set; }
     }
     class Program
     {
@@ -95,20 +106,32 @@ namespace xRM_Testing
         }
         static void Main(string[] args)
         {
-            // createLead("New Candidate", "Laetitia", "Casta");
-
-            string fileName = "C:\\Users\\Dalil\\Documents\\Laetitia Casta CV.docx";
+            string fileName = "C:\\Users\\dalild\\Documents\\Laetitia CV.docx";
             string responseMessage = null;
             FileStream stream = File.OpenRead(fileName);
             byte[] byteData = new byte[stream.Length];
 
-            // WebRequest request = WebRequest.Create("http://xrmconnector.azurewebsites.net/api/Lead?subject=New%20Candidate&firstName=Laetitia&lastName=Casta");
-            WebRequest request = WebRequest.Create("http://localhost/xRMConnector/api/Lead?subject=New%20Candidate&firstName=Laetitia&lastName=Casta");
+            JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+            Lead lead = new Lead();
+            lead.Subject = "Candidate";
+            lead.FirstName = "Laetitia";
+            lead.LastName = "Casta";
+            lead.NoteSubject = "CV";
+            lead.FileName = "Laetitia CV.docx";
+            lead.MimeType = GetContentType(fileName);
+            lead.Data = byteData;
+
+            var json = JsonConvert.SerializeObject(lead);
+            byte[] byteArray = Encoding.UTF8.GetBytes(json);
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.1.28/xRMConnector/api/Lead");
             request.ContentType = "application/json";
             request.Method = "POST";
-            request.ContentLength = 158;
-            // using (Stream postStream = request.GetRequestStream())
-                // postStream.Write(byteData, 0, byteData.Length);
+            request.ContentLength = byteArray.Length;
+
+            Stream dataStream = request.GetRequestStream();
+            dataStream.Write(byteArray, 0, byteArray.Length);
+            dataStream.Close();
 
             HttpWebResponse response = (HttpWebResponse)(request.GetResponse());
 
