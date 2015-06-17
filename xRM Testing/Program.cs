@@ -102,10 +102,11 @@ namespace xRM_Testing
             FileStream stream = File.OpenRead(fileName);
             byte[] byteData = new byte[stream.Length];
 
-            WebRequest request = WebRequest.Create("http://xrmconnector.azurewebsites.net/api/Lead?subject=New%20Candidate&firstName=Laetitia&lastName=Casta");
-            // request.ContentType = "application/octet-stream";
+            // WebRequest request = WebRequest.Create("http://xrmconnector.azurewebsites.net/api/Lead?subject=New%20Candidate&firstName=Laetitia&lastName=Casta");
+            WebRequest request = WebRequest.Create("http://localhost/xRMConnector/api/Lead?subject=New%20Candidate&firstName=Laetitia&lastName=Casta");
+            request.ContentType = "application/json";
             request.Method = "POST";
-            // request.ContentLength = byteData.Length;
+            request.ContentLength = 158;
             // using (Stream postStream = request.GetRequestStream())
                 // postStream.Write(byteData, 0, byteData.Length);
 
